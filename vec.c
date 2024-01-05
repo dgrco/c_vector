@@ -39,6 +39,7 @@ void vec_insert(Vec *v, const void *data, size_t index) {
   v->count++;
 }
 
+// Deletes element and does NOT free its memory.
 void vec_delete(Vec *v, size_t index) {
   assert_valid_index(v, index, 0);
   for (size_t i = index; i < v->count; ++i) {
@@ -53,10 +54,9 @@ void *vec_get_pointer_at(const Vec *v, size_t index) {
   return (char *)v->data + index * v->element_size;
 }
 
-size_t vec_size(Vec *v) {
-  return v->count;
-}
+size_t vec_size(Vec *v) { return v->count; }
 
+// Frees `data`, this does NOT free heap-allocated pointers stored in it.
 void vec_free(Vec *v) {
   if (v->data) {
     free(v->data);
